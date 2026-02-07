@@ -2,7 +2,7 @@ import styles from "./components/Site.module.css";
 import {PageOne} from "./components/pages/PageOne.tsx";
 import {PageTwo} from "./components/pages/PageTwo.tsx";
 import {PageThree} from "./components/pages/PageThree.tsx";
-import {Navigate, Route, Routes} from "react-router-dom";
+import {Navigate, NavLink, Route, Routes} from "react-router-dom";
 import {Error404} from "./components/pages/Error404.tsx";
 
 export const App = () => {
@@ -13,7 +13,9 @@ export const App = () => {
       </div>
       <div className={styles.body}>
         <div className={styles.nav}>
-          Здесь будет навигация
+          <div><NavLink to={"/page1"} className={({isActive}) => isActive ? styles.activeNavLink : styles.navLink}> Page 1</NavLink></div>
+          <div><NavLink to={"/page2"} className={({isActive}) => isActive ? styles.activeNavLink : styles.navLink}> Page 2</NavLink></div>
+          <div><NavLink to={"/page3"} className={({isActive}) => isActive ? styles.activeNavLink : styles.navLink}> Page 3</NavLink></div>
         </div>
         <div className={styles.content}>
           <Routes>
@@ -34,12 +36,12 @@ export const App = () => {
               element={<PageThree />}
             />
             <Route
-              path="/error404"
+              path="/page/error"
               element={<Error404/>}
             />
             <Route
               path="/*"
-              element={<Navigate to={"/error404"}/>}
+              element={<Navigate to={"/page/error"}/>}
             />
           </Routes>
         </div>
