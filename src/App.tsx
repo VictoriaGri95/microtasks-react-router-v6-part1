@@ -1,11 +1,21 @@
 import styles from "./components/Site.module.css";
-import {PageOne} from "./components/pages/PageOne.tsx";
-import {PageTwo} from "./components/pages/PageTwo.tsx";
-import {PageThree} from "./components/pages/PageThree.tsx";
+import {Adidas} from "./components/pages/Adidas.tsx";
+import {Puma} from "./components/pages/Puma.tsx";
+import {Abibas} from "./components/pages/Abibas.tsx";
 import {Navigate, NavLink, Route, Routes} from "react-router-dom";
+import {S} from '././components/pages/_styles.ts'
 import {Error404} from "./components/pages/Error404.tsx";
+import {Model} from "./components/pages/Model.tsx";
 
-export const App = () => {
+const PATH = {
+  PAGE1: '/adidas',
+  PAGE2: '/puma',
+  PAGE3: '/abibas',
+
+} as const;
+
+
+const App = () => {
   return (
     <div>
       <div className={styles.header}>
@@ -13,35 +23,47 @@ export const App = () => {
       </div>
       <div className={styles.body}>
         <div className={styles.nav}>
-          <div><NavLink to={"/page1"} className={({isActive}) => isActive ? styles.activeNavLink : styles.navLink}> Page 1</NavLink></div>
-          <div><NavLink to={"/page2"} className={({isActive}) => isActive ? styles.activeNavLink : styles.navLink}> Page 2</NavLink></div>
-          <div><NavLink to={"/page3"} className={({isActive}) => isActive ? styles.activeNavLink : styles.navLink}> Page 3</NavLink></div>
+          <S.NavWrapper><NavLink
+            to={PATH.PAGE1}
+
+          > Adidas</NavLink></S.NavWrapper>
+          <S.NavWrapper><NavLink
+            to={PATH.PAGE2}
+
+          > Puma</NavLink></S.NavWrapper>
+          <S.NavWrapper><NavLink
+            to={PATH.PAGE3}
+
+          > Abibas</NavLink></S.NavWrapper>
         </div>
         <div className={styles.content}>
           <Routes>
             <Route
               path="/"
-              element={<Navigate to={"/page1"}/>}
+              element={<Navigate to={PATH.PAGE1} />}
             />
             <Route
-              path="/page1"
-              element={<PageOne />}
+              path={PATH.PAGE1}
+              element={<Adidas />}
             />
             <Route
-              path="/page2"
-              element={<PageTwo />}
+              path={PATH.PAGE2}
+              element={<Puma />}
             />
             <Route
-              path="/page3"
-              element={<PageThree />}
+              path={PATH.PAGE3}
+              element={<Abibas />}
             />
+
             <Route
-              path="/page/error"
-              element={<Error404/>}
+              path={'adidas/:id'}
+              element={<Model />}
             />
+
+
             <Route
               path="/*"
-              element={<Navigate to={"/page/error"}/>}
+              element={<Error404 />}
             />
           </Routes>
         </div>
@@ -50,3 +72,6 @@ export const App = () => {
     </div>
   );
 }
+
+
+export default App;
