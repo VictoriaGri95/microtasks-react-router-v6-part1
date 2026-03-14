@@ -6,7 +6,7 @@ export const Crosses = () => {
       <div>
         Header
       </div>
-      <Outlet/>
+      <Outlet />
       <div>footer</div>
     </div>
   );

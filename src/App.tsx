@@ -1,23 +1,15 @@
 import styles from "./components/Site.module.css";
-import {Adidas} from "./components/pages/Adidas.tsx";
-import {Puma} from "./components/pages/Puma.tsx";
-import {Abibas} from "./components/pages/Abibas.tsx";
-import {Navigate, NavLink, Outlet, Route, Routes} from "react-router-dom";
+import {Link, NavLink, Outlet, useNavigate} from "react-router-dom";
 import {S} from '././components/pages/_styles.ts'
-import {Error404} from "./components/pages/Error404.tsx";
-import {Model} from "./components/pages/Model.tsx";
-import {Prices} from "./components/pages/Prices.tsx";
-
-const PATH = {
-  PAGE1: '/adidas',
-  PAGE2: '/puma',
-  PAGE3: '/abibas',
-  PAGE4: '/prices',
-
-} as const;
+import {PATH} from "./routes/router.tsx";
 
 
 const App = () => {
+  const navigate = useNavigate();
+  const navigateHandler = () => {
+    navigate(-1)
+  }
+  
   return (
     <div>
       <div className={styles.header}>
@@ -26,57 +18,34 @@ const App = () => {
       <div className={styles.body}>
         <div className={styles.nav}>
           <S.NavWrapper><NavLink
-            to={PATH.PAGE1}
+            to={PATH.ADIDAS}
 
           > Adidas</NavLink></S.NavWrapper>
           <S.NavWrapper><NavLink
-            to={PATH.PAGE2}
+            to={PATH.PUMA}
 
           > Puma</NavLink></S.NavWrapper>
           <S.NavWrapper><NavLink
-            to={PATH.PAGE3}
+            to={PATH.ABIBAS}
 
           > Abibas</NavLink></S.NavWrapper>
           <S.NavWrapper><NavLink
-            to={PATH.PAGE4}
+            to={PATH.PRICES}
 
           > Цены для оптовиков</NavLink></S.NavWrapper>
+          <S.NavWrapper><NavLink
+            to={PATH.PROTECTEDPAGE}
+
+          > PROTECTED PAGE</NavLink></S.NavWrapper>
         </div>
         <div className={styles.content}>
-          <Outlet/>
-          {/*<Routes>*/}
-          {/*  <Route*/}
-          {/*    path="/"*/}
-          {/*    element={<Navigate to={PATH.PAGE1} />}*/}
-          {/*  />*/}
-          {/*  <Route*/}
-          {/*    path={PATH.PAGE1}*/}
-          {/*    element={<Adidas />}*/}
-          {/*  />*/}
-          {/*  <Route*/}
-          {/*    path={PATH.PAGE2}*/}
-          {/*    element={<Puma />}*/}
-          {/*  />*/}
-          {/*  <Route*/}
-          {/*    path={PATH.PAGE3}*/}
-          {/*    element={<Abibas />}*/}
-          {/*  />*/}
-          {/*  <Route*/}
-          {/*    path={PATH.PAGE4}*/}
-          {/*    element={<Prices />}*/}
-          {/*  />*/}
+          <div className={styles.HorizontalNavigation}>
+            <Link to={PATH.ADIDAS} className={styles.LinkLikeButton}>ГЛАВНАЯ СТРАНИЦА</Link>
 
-          {/*  <Route*/}
-          {/*    path={'/:model/:id'}*/}
-          {/*    element={<Model />}*/}
-          {/*  />*/}
+            <button onClick={navigateHandler} className={styles.ButtonLikeLink}>НАЗАД</button>
+          </div>
+          <Outlet />
 
-
-          {/*  <Route*/}
-          {/*    path="/*"*/}
-          {/*    element={<Error404 />}*/}
-          {/*  />*/}
-          {/*</Routes>*/}
         </div>
       </div>
       <div className={styles.footer}>abibas 2023</div>
